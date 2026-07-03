@@ -30,8 +30,9 @@ canvas{width:100%;border-radius:16px;background:#111;margin-top:8px}
     <label>Tipo de Registro</label>
     <select id="tipo">
       <option>INÍCIO DE TURNO</option>
+      <option>INÍCIO DE INTERVALO</option>
+      <option>FIM DE INTERVALO</option>
       <option>FIM DE TURNO</option>
-      <option>INTERVALO</option>
     </select>
 
     <label>Equipe</label>
@@ -153,8 +154,9 @@ function atualizarCampoTurno() {
   const select = document.getElementById("turnoJornada");
   const valorAtual = select.value;
 
-  const opcoes = tipo === "INTERVALO" ? opcoesIntervalo : opcoesJornada;
-  label.textContent = tipo === "INTERVALO" ? "Horário de Intervalo" : "Turno / Jornada";
+  const ehIntervalo = tipo === "INÍCIO DE INTERVALO" || tipo === "FIM DE INTERVALO";
+  const opcoes = ehIntervalo ? opcoesIntervalo : opcoesJornada;
+  label.textContent = ehIntervalo ? "Horário de Intervalo" : "Turno / Jornada";
 
   select.innerHTML = "";
   opcoes.forEach(function(op) {
@@ -195,7 +197,8 @@ function atualizarResumo() {
   const e = getEquipeAtual();
   const turno = document.getElementById("turnoJornada").value;
   const tipo = document.getElementById("tipo").value;
-  const labelTurno = tipo === "INTERVALO" ? "Intervalo" : "Turno";
+  const ehIntervalo = tipo === "INÍCIO DE INTERVALO" || tipo === "FIM DE INTERVALO";
+  const labelTurno = ehIntervalo ? "Intervalo" : "Turno";
   document.getElementById("resumoEquipe").innerHTML =
     "<b>Polo:</b> " + e.POLO + "<br>" +
     "<b>Processo:</b> " + e.PROCESSO + "<br>" +
@@ -264,8 +267,9 @@ function gerar() {
   const turnoJornada = document.getElementById("turnoJornada").value;
   const e = getEquipeAtual();
   const agora = agoraBR();
-  const iconeTipo = tipo === "INTERVALO" ? "☕" : "⚡";
-  const labelTurnoArte = tipo === "INTERVALO" ? "Intervalo" : "Turno";
+  const ehIntervalo = tipo === "INÍCIO DE INTERVALO" || tipo === "FIM DE INTERVALO";
+  const iconeTipo = ehIntervalo ? "☕" : "⚡";
+  const labelTurnoArte = ehIntervalo ? "Intervalo" : "Turno";
 
   drawText(ctx,iconeTipo + " " + tipo,w/2,120,38,"800","center");
   drawText(ctx,e.EQUIPE,w/2,225,72,"900","center");
@@ -304,7 +308,7 @@ function gerar() {
   ctx.fillStyle = "rgba(0,0,0,.70)";
   ctx.fillRect(0,h-205,w,205);
 
-  if (tipo === "INTERVALO") {
+  if (ehIntervalo) {
     drawText(ctx,"☕ PAUSA OPERACIONAL",w/2,h-146,34,"900","center");
     drawText(ctx,"Equipe em intervalo programado",w/2,h-108,28,"800","center");
     drawText(ctx,"Retorno conforme jornada informada",w/2,h-76,26,"700","center");
