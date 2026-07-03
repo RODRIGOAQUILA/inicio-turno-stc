@@ -205,11 +205,11 @@ function gerar() {
   const e = getEquipeAtual();
   const agora = agoraBR();
 
-  drawText(ctx,"⚡ " + tipo,w/2,118,38,"800","center");
+  drawText(ctx,"⚡ " + tipo,w/2,120,38,"800","center");
   drawText(ctx,e.EQUIPE,w/2,225,72,"900","center");
 
   ctx.fillStyle = "rgba(0,0,0,.36)";
-  roundRect(ctx,105,285,870,705,34);
+  roundRect(ctx,105,290,870,700,34);
   ctx.fill();
 
   const rows = [
@@ -231,11 +231,11 @@ function gerar() {
     y += 72;
   });
 
-  // Logo Equatorial centralizada abaixo dos dados, antes do checklist
+  // Logo Equatorial abaixo do quadro e acima do checklist
   if (logo.complete && logo.naturalWidth > 0) {
-    const lw = 190;
-    const lh = lw * (logo.naturalHeight / logo.naturalWidth);
-    ctx.drawImage(logo, (w-lw)/2, h-275, lw, lh);
+    const logoW = 210;
+    const logoH = logoW * (logo.naturalHeight / logo.naturalWidth);
+    ctx.drawImage(logo, (w-logoW)/2, h-285, logoW, logoH);
   }
 
   ctx.fillStyle = "rgba(0,0,0,.70)";
