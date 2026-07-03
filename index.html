@@ -206,18 +206,10 @@ function gerar() {
   const agora = agoraBR();
 
   drawText(ctx,"⚡ " + tipo,w/2,118,38,"800","center");
-
-  // Logo Equatorial no topo da arte
-  if (logo.complete && logo.naturalWidth > 0) {
-    const lw = 260;
-    const lh = lw * (logo.naturalHeight / logo.naturalWidth);
-    ctx.drawImage(logo, (w-lw)/2, 145, lw, lh);
-  }
-
-  drawText(ctx,e.EQUIPE,w/2,255,72,"900","center");
+  drawText(ctx,e.EQUIPE,w/2,225,72,"900","center");
 
   ctx.fillStyle = "rgba(0,0,0,.36)";
-  roundRect(ctx,105,300,870,735,34);
+  roundRect(ctx,105,285,870,705,34);
   ctx.fill();
 
   const rows = [
@@ -231,13 +223,20 @@ function gerar() {
     ["👤","Líder",e.LIDER]
   ];
 
-  let y = 390;
+  let y = 370;
   rows.forEach(function(r) {
     drawText(ctx,r[0],155,y,30,"700","left");
     drawText(ctx,r[1] + ":",215,y,30,"700","left");
     drawText(ctx,r[2],435,y,30,"500","left");
-    y += 76;
+    y += 72;
   });
+
+  // Logo Equatorial centralizada abaixo dos dados, antes do checklist
+  if (logo.complete && logo.naturalWidth > 0) {
+    const lw = 190;
+    const lh = lw * (logo.naturalHeight / logo.naturalWidth);
+    ctx.drawImage(logo, (w-lw)/2, h-275, lw, lh);
+  }
 
   ctx.fillStyle = "rgba(0,0,0,.70)";
   ctx.fillRect(0,h-205,w,205);
